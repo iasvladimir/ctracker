@@ -12,6 +12,8 @@ target 'ctracker' do
 
   target 'ctrackerTests' do
     inherit! :search_paths
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Crashlytics'
   end
 
 end
