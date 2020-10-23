@@ -34,7 +34,7 @@ platform :ios do
     desc "Perform Unit and UI tests"
     lane :test do
         run_tests(
-            workspace: ENV["WORKSPACE"],
+            project: ENV["PROJECT"],
             scheme: ENV["SCHEME"],
             devices: ENV["DEVICES"],
             reinstall_app: true,
