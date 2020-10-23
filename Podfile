@@ -12,11 +12,6 @@ target 'ctracker' do
 
   target 'ctrackerTests' do
     inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'ctrackerUITests' do
-    # Pods for testing
   end
 
 end
