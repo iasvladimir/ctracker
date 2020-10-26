@@ -1,0 +1,15 @@
+# For more information about this configuration visit
+# https://docs.fastlane.tools/actions/gym/#gymfile
+
+# sdk("iphoneos9.0")
+
+workspace(ENV["WORKSPACE"])
+scheme(ENV["SCHEME"])
+clean(true)
+output_directory(ENV["OUTPUT_DIRECTORY"])
+output_name(ENV["OUTPUT_NAME"])
+include_bitcode(false)
+include_symbols(false)
+export_options({
+    method: ENV["EXPORT_METHOD"]
+})

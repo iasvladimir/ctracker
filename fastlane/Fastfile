@@ -29,7 +29,7 @@ platform :ios do
         )
     end
 
-# Lint for performing Unit and UI tests"
+    # Lint for performing Unit and UI tests"
 
     desc "Perform Unit and UI tests"
     lane :test do
@@ -42,4 +42,76 @@ platform :ios do
         )
     end
 
+    # Lint for releasing an .ipa file
+
+    desc "Release .ipa file"
+    lane :release do
+        begin
+        # Sync code signing (certificates and profiles)
+        fetch_code_signing()
+
+        # Update build number and build project to generate an .ipa file
+        build_project()
+
+        # Upload build to Firebase
+        #upload_release_to_firebase()
+      
+        # Send a message to Slack to notify a release has been uploaded
+        #send_notification_to_slack()
+        
+        rescue => exception
+            puts exception.to_s
+        end
+    end
+end
+
+### Methods for releasing ###
+
+def fetch_code_signing
+    match(
+      type: ENV["TYPE"], 
+      app_identifier: ENV["BUNDLE_IDENTIFIER"], 
+      team_id: ENV["TEAM_ID"], 
+      force_for_new_devices: true
+    )
+end
+  
+def build_project
+    build_number = increment_build_number
+    commit_version_bump(
+      message: "Version Bump to #{build_number} [ci skip]",
+      xcodeproj: ENV["PROJECT"]
+    )
+    push_to_git_remote
+    gym
+end
+  
+def upload_release_to_firebase  
+    firebase_app_distribution(
+      app: ENV["APP"],
+      groups_file: ENV["GROUPS_FILE"],
+      release_notes_file: ENV["RELEASE_NOTES_FILE"],
+      firebase_cli_path: ENV["CLI_PATH"]
+    )
+end
+  
+def send_notification_to_slack
+    slack(
+      message: "A new version of App demo has been released.",
+      slack_url: "https://hooks.slack.com/services/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",
+      use_webhook_configured_username_and_icon: true,
+      default_payloads: [:git_branch],
+      attachment_properties: {
+        fields: [
+          {
+            title: "Version number",
+            value: get_version_number(xcodeproj: "ctracker.xcodeproj"),
+          },
+          {
+            title: "Build number",
+            value: get_build_number(xcodeproj: "ctracker.xcodeproj"),
+          }
+        ]
+      }
+    )
 end
