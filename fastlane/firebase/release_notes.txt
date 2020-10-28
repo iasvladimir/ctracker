@@ -1,2 +1,2 @@
-"- New project settings added.
-- Fastfile refactored."
+- New project settings added.
+- Fastfile refactored.

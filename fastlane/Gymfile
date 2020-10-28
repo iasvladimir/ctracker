@@ -10,6 +10,4 @@ output_directory(ENV["OUTPUT_DIRECTORY"])
 output_name(ENV["OUTPUT_NAME"])
 include_bitcode(false)
 include_symbols(false)
-export_options({
-    method: ENV["EXPORT_METHOD"]
-})
+export_method(ENV["EXPORT_METHOD"])
