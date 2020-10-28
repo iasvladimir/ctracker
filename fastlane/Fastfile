@@ -77,12 +77,12 @@ def fetch_code_signing
 end
   
 def build_project
-    #build_number = increment_build_number
-    #commit_version_bump(
+    build_number = increment_build_number
+    commit_version_bump(
       #message: "Version Bump to #{build_number} [ci skip]",
       #xcodeproj: ENV["PROJECT"]
-    #)
-    #push_to_git_remote
+    )
+    push_to_git_remote
     gym
 end
   
@@ -98,7 +98,7 @@ end
 def send_notification_to_slack
     slack(
       message: "A new version of App demo has been released.",
-      slack_url: "https://hooks.slack.com/services/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",
+      slack_url: "https://hooks.slack.com/services/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",
       use_webhook_configured_username_and_icon: true,
       default_payloads: [:git_branch],
       attachment_properties: {
