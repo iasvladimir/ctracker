@@ -54,10 +54,10 @@ platform :ios do
         build_project()
 
         # Upload build to Firebase
-        upload_release_to_firebase()
+        #upload_release_to_firebase()
       
         # Send a message to Slack to notify a release has been uploaded
-        send_notification_to_slack()
+        #send_notification_to_slack()
         
         rescue => exception
             puts exception.to_s
@@ -77,13 +77,13 @@ def fetch_code_signing
 end
   
 def build_project
-    build_number = increment_build_number
+    build_number = increment_build_numbergiut
     commit_version_bump(
       message: "Version Bump to #{build_number}",
       xcodeproj: ENV["PROJECT"]
     )
-    push_to_git_remote
-    gym
+    push_to_git_remote(set_upstream)
+    #gym
 end
   
 def upload_release_to_firebase  
