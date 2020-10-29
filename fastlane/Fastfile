@@ -77,12 +77,12 @@ def fetch_code_signing
 end
   
 def build_project
-    build_number = increment_build_numbergiut
+    build_number = increment_build_number
     commit_version_bump(
       message: "Version Bump to #{build_number}",
       xcodeproj: ENV["PROJECT"]
     )
-    push_to_git_remote(set_upstream)
+    push_to_git_remote(set_upstream: true)
     #gym
 end
   
